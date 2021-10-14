@@ -30,6 +30,5 @@
 
 import numpy as np
 from math import *
-x = np.array([0,1/0])
-#print(degrees(atan(x[1]/x[0])))
-print(np.arctan(x))
+x = np.array([2,4])
+print(x/2)
