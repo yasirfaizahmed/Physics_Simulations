@@ -23,7 +23,6 @@ class Body:
 				self.__netforce += f
 		except:
 			pass
-		print(self.__netforce[1], self.__netforce[0])
 		self.__angle = np.arctan2(self.__netforce[1], self.__netforce[0])
 	
 	
@@ -32,18 +31,30 @@ class Body:
 		np.append(self.force_list, force)
 		self.__netforce += force
 	
-	def UpdateVelocity(self, t_inst):
+	def GetVelocity(self, t_inst):
 		self.__velocity = (self.__netforce/self.__mass)*t_inst
 		return self.__velocity
 		
-	def UpdatePosition(self, t_inst):
-		self.__position = self.UpdateVelocity(t_inst)*t_inst
+	def GetPosition(self, t_inst):
+		self.__position = self.GetVelocity(t_inst)*t_inst
 		return self.__position
+		
+		
+	def GetData(self, t, datatype):
+		temp = np.array([])
+		for t_inst in t:
+			if datatype == "velocity":
+				temp = np.append(temp, self.Mag(self.GetVelocity(t_inst)))
+			elif datatype == "Xdis":
+				temp = np.append(temp, self.GetPosition(t_inst)[0])
+			elif datatype == "Ydis":
+				temp = np.append(temp, self.GetPosition(t_inst)[1])
+		return temp
 		
 			
 	def Display(self):
 		pass
 		#print("{}:{}:{}:{}:{}".format(self.__mass, self.__radius, self.__velocity, self.__netforce, self.__magnetforce))
-		print( "{}:{}".format(self.__netforce, degrees(self.__angle)) ) 
+		#print( "{}:{}".format(self.__netforce, degrees(self.__angle)) ) 
 		
 		
