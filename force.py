@@ -28,31 +28,15 @@ plt = qt.plot()
 v = b1.GetData(t, "velocity")
 x = b1.GetData(t, "Xdis")
 y = b1.GetData(t, "Ydis")
-#plt.plot(t, v, pen='b')
-# prev = []
-# for indx,t_inst in enumerate(t):
-	# if indx == 0:
-		# prev = [t[0], x[0]]
-	# else:
-		# prev = [t[indx-1], x[indx-1]]
-	# plt.plot([t_inst,prev[0]], [x[indx],prev[1]], pen=qt.mkPen('r',width=5))
-	# #plt.plot(t_inst, y[indx], pen='g')
-	# QtTest.QTest.qWait(delta_time)
-
-PlotData(plt, t, x, delta_time)
 
 
-#t = np.arange(t_list[1], t_list[2], delta)
-#1.UpdateNetForce([2,4])
+PlotData(qt_obj=plt, x_data=t, y_data=x, delay=200, z_data=v)
 
-# v = b1.GetData(t, "velocity")
-# x = b1.GetData(t, "Xdis")
-# y = b1.GetData(t, "Ydis")
-# #plt.plot(t, v, pen='b')
-# for indx,t_inst in enumerate(t):
-	# plt.plot(t_inst, x[indx], pen='r')
-	# plt.plot(t_inst, y[indx], pen='g')
-	# time.sleep(delta)
+
+
+
+
+
 
 if __name__ == '__main__':
     

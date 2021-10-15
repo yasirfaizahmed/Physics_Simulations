@@ -34,16 +34,39 @@ from pyqtgraph.Qt import QtCore, QtGui
 from PyQt5 import QtTest
 from math import *
 x = np.array([2,4])
+import sys
 
 plt = qt.plot()
+app = qt.mkQApp()
 
-t = np.arange(0, 10, 0.5)
-x = np.array([9,6,7,8,6,7,5,4,3,4,5,6,7,8,9,7,6,6,54,8])
-temp = [t[0], x[0]]
-for i,tt in enumerate(t):
-	plt.plot([tt,temp[0]], [x[i],temp[1]])
-	temp = [tt, x[i]]
-	QtTest.QTest.qWait(500)
+t = np.arange(0, 10, 1)
+x = np.array([9,6,7,8,6,7,5,4,3,4,5,6,7,8,9,7,6,6,5,8])
+z = np.array([1,2,3,4,5,6,7,8,5,6,7,5,3,4,5,6,7,3,5,4])
+
+def PlotData(qt_obj, x_data, delay, **kwargs):
+	prev = {}
+	keys = kwargs.keys()
+		
+	for indx, x_inst in enumerate(x_data):
+		for key in keys:
+			if indx == 0:
+				prev[key] = [x_data[0], kwargs[key][0]]
+			else:
+				prev[key] = [x_data[indx-1], kwargs[key][indx-1]]
+			qt_obj.plot( [x_inst, prev[key][0]], [kwargs[key][indx],prev[key][1]], pen=qt.mkPen('b', width=5))
+		
+		QtTest.QTest.qWait(delay)
+
+
+
+
+
+PlotData(qt_obj=plt, x_data=t, y_data=x, delay=200, z_data=z)
+
+
+
+
+	
 	
 if __name__ == '__main__':
      
@@ -52,4 +75,4 @@ if __name__ == '__main__':
      
     # Start Qt event loop unless running in interactive mode or using
     if (sys.flags.interactive != 1) or not hasattr(QtCore, 'PYQT_VERSION'):
-        QtGui.QApplication.instance().exec_()
+        sys.exit(app.exec_())

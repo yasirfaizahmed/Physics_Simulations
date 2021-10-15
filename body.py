@@ -4,14 +4,18 @@ import pyqtgraph as qt
 from pyqtgraph.Qt import QtCore, QtGui
 from PyQt5 import QtTest
 
-def PlotData(qt_obj, x_data, y_data, delay):
-	prev = []
+def PlotData(qt_obj, x_data, delay, **kwargs):
+	prev = {}
+	keys = kwargs.keys()
+		
 	for indx, x_inst in enumerate(x_data):
-		if indx == 0:
-			prev = [x_data[0], y_data[0]]
-		else:
-			prev = [x_data[indx-1], y_data[indx-1]]
-		qt_obj.plot([x_inst,prev[0]], [y_data[indx],prev[1]])
+		for key in keys:
+			if indx == 0:
+				prev[key] = [x_data[0], kwargs[key][0]]
+			else:
+				prev[key] = [x_data[indx-1], kwargs[key][indx-1]]
+			qt_obj.plot( [x_inst, prev[key][0]], [kwargs[key][indx],prev[key][1]], pen=qt.mkPen('b', width=5))
+		
 		QtTest.QTest.qWait(delay)
 
 
