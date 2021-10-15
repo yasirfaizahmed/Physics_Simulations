@@ -29,6 +29,27 @@
 # main()
 
 import numpy as np
+import pyqtgraph as qt
+from pyqtgraph.Qt import QtCore, QtGui
+from PyQt5 import QtTest
 from math import *
 x = np.array([2,4])
-print(x/2)
+
+plt = qt.plot()
+
+t = np.arange(0, 10, 0.5)
+x = np.array([9,6,7,8,6,7,5,4,3,4,5,6,7,8,9,7,6,6,54,8])
+temp = [t[0], x[0]]
+for i,tt in enumerate(t):
+	plt.plot([tt,temp[0]], [x[i],temp[1]])
+	temp = [tt, x[i]]
+	QtTest.QTest.qWait(500)
+	
+if __name__ == '__main__':
+     
+    # importing system
+    import sys
+     
+    # Start Qt event loop unless running in interactive mode or using
+    if (sys.flags.interactive != 1) or not hasattr(QtCore, 'PYQT_VERSION'):
+        QtGui.QApplication.instance().exec_()

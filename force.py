@@ -27,8 +27,10 @@ v = b1.GetData(t, "velocity")
 x = b1.GetData(t, "Xdis")
 y = b1.GetData(t, "Ydis")
 #plt.plot(t, v, pen='b')
-plt.plot(t, x, pen='r')
-plt.plot(t, y, pen='g')
+for indx,t_inst in enumerate(t):
+	plt.plot(t_inst, x[indx], pen='r')
+	plt.plot(t_inst, y[indx], pen='g')
+	time.sleep(delta)
 
 t = np.arange(t_list[1], t_list[2], delta)
 b1.UpdateNetForce([2,4])
@@ -37,8 +39,10 @@ v = b1.GetData(t, "velocity")
 x = b1.GetData(t, "Xdis")
 y = b1.GetData(t, "Ydis")
 #plt.plot(t, v, pen='b')
-plt.plot(t, x, pen='r')
-plt.plot(t, y, pen='g')
+for indx,t_inst in enumerate(t):
+	plt.plot(t_inst, x[indx], pen='r')
+	plt.plot(t_inst, y[indx], pen='g')
+	time.sleep(delta)
 
 if __name__ == '__main__':
      
