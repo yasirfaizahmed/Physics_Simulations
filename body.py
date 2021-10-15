@@ -1,5 +1,18 @@
 from math import *
 import numpy as np
+import pyqtgraph as qt
+from pyqtgraph.Qt import QtCore, QtGui
+from PyQt5 import QtTest
+
+def PlotData(qt_obj, x_data, y_data, delay):
+	prev = []
+	for indx, x_inst in enumerate(x_data):
+		if indx == 0:
+			prev = [x_data[0], y_data[0]]
+		else:
+			prev = [x_data[indx-1], y_data[indx-1]]
+		qt_obj.plot([x_inst,prev[0]], [y_data[indx],prev[1]])
+		QtTest.QTest.qWait(delay)
 
 
 class Body:
@@ -24,8 +37,6 @@ class Body:
 		except:
 			pass
 		self.__angle = np.arctan2(self.__netforce[1], self.__netforce[0])
-	
-	
 		
 	def UpdateNetForce(self, force=[0,0]):
 		np.append(self.force_list, force)
@@ -39,7 +50,6 @@ class Body:
 		self.__position = self.GetVelocity(t_inst)*t_inst
 		return self.__position
 		
-		
 	def GetData(self, t, datatype):
 		temp = np.array([])
 		for t_inst in t:
@@ -50,6 +60,8 @@ class Body:
 			elif datatype == "Ydis":
 				temp = np.append(temp, self.GetPosition(t_inst)[1])
 		return temp
+		
+	
 		
 			
 	def Display(self):
